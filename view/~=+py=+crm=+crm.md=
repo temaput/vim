@@ -1,0 +1,260 @@
+let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+argglobal
+nnoremap <buffer> <silent> 	 :call Voom_ToTreeOrBodyWin()
+nnoremap <buffer> <silent>  :call Voom_BodySelect()
+map <buffer> <silent> \nr ya[op$a:
+map <buffer> <silent> \br :call pandoc_misc#Pandoc_Back_From_Ref()
+map <buffer> <silent> \gr :call pandoc_misc#Pandoc_Goto_Ref()
+map <buffer> <silent> \www :call pandoc_misc#Pandoc_Open_URI()
+map <buffer> <silent> \odt+ :call pandoc_exec#PandocExecute("pandoc -t odt PANDOC#P_BIBS -o %:r.odt %%", "odt" , 1)
+map <buffer> <silent> \odt :call pandoc_exec#PandocExecute("pandoc -t odt PANDOC#P_BIBS -o %:r.odt %%", "odt", 0)
+map <buffer> <silent> \pdf+ :call pandoc_exec#PandocExecute("pandoc --latex-engine xelatex PANDOC#P_BIBS -o %:r.pdf %%", "pdf" , 1)
+map <buffer> <silent> \pdf :call pandoc_exec#PandocExecute("pandoc --latex-engine xelatex PANDOC#P_BIBS -o %:r.pdf %%", "pdf", 0)
+map <buffer> <silent> \html+ :call pandoc_exec#PandocExecute("pandoc -t html -Ss -o %:r.html %%", "html" , 1)
+map <buffer> <silent> \html :call pandoc_exec#PandocExecute("pandoc -t html -Ss -o %:r.html %%", "html", 0)
+noremap <buffer> <silent> \o :Voom markdown
+lnoremap <buffer> " Э
+lnoremap <buffer> # №
+lnoremap <buffer> $ ;
+lnoremap <buffer> & ?
+lnoremap <buffer> ' э
+lnoremap <buffer> , б
+lnoremap <buffer> . ю
+lnoremap <buffer> / .
+lnoremap <buffer> : Ж
+lnoremap <buffer> ; ж
+lnoremap <buffer> < Б
+lnoremap <buffer> > Ю
+lnoremap <buffer> ? ,
+lnoremap <buffer> @ "
+lnoremap <buffer> A Ф
+lnoremap <buffer> B И
+lnoremap <buffer> C С
+lnoremap <buffer> D В
+lnoremap <buffer> E У
+lnoremap <buffer> F А
+lnoremap <buffer> G П
+lnoremap <buffer> H Р
+lnoremap <buffer> I Ш
+lnoremap <buffer> J О
+let s:cpo_save=&cpo
+set cpo&vim
+lnoremap <buffer> K Л
+lnoremap <buffer> L Д
+lnoremap <buffer> M Ь
+lnoremap <buffer> N Т
+lnoremap <buffer> O Щ
+lnoremap <buffer> P З
+lnoremap <buffer> Q Й
+lnoremap <buffer> R К
+lnoremap <buffer> S Ы
+lnoremap <buffer> T Е
+lnoremap <buffer> U Г
+lnoremap <buffer> V М
+lnoremap <buffer> W Ц
+lnoremap <buffer> X Ч
+lnoremap <buffer> Y Н
+lnoremap <buffer> Z Я
+lnoremap <buffer> [ х
+lnoremap <buffer> ] ъ
+lnoremap <buffer> ^ :
+lnoremap <buffer> ` ё
+lnoremap <buffer> a ф
+lnoremap <buffer> b и
+lnoremap <buffer> c с
+lnoremap <buffer> d в
+lnoremap <buffer> e у
+lnoremap <buffer> f а
+lnoremap <buffer> g п
+lnoremap <buffer> h р
+lnoremap <buffer> i ш
+lnoremap <buffer> j о
+lnoremap <buffer> k л
+lnoremap <buffer> l д
+lnoremap <buffer> m ь
+lnoremap <buffer> n т
+lnoremap <buffer> o щ
+lnoremap <buffer> p з
+lnoremap <buffer> q й
+lnoremap <buffer> r к
+lnoremap <buffer> s ы
+lnoremap <buffer> t е
+lnoremap <buffer> u г
+lnoremap <buffer> v м
+lnoremap <buffer> w ц
+lnoremap <buffer> x ч
+lnoremap <buffer> y н
+lnoremap <buffer> z я
+lnoremap <buffer> { Х
+lnoremap <buffer> } Ъ
+lnoremap <buffer> ~ Ё
+let &cpo=s:cpo_save
+unlet s:cpo_save
+setlocal keymap=russian-jcukenwin
+setlocal noarabic
+setlocal autoindent
+setlocal balloonexpr=
+setlocal nobinary
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal nocindent
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=80
+setlocal comments=s:<!--,m:\ \ \ \ ,e:-->
+setlocal commentstring=<!--%s-->
+setlocal complete=.,w,b,u,t
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal completefunc=
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+setlocal nocursorcolumn
+setlocal nocursorline
+setlocal define=
+setlocal dictionary=/home/tema.
+setlocal nodiff
+setlocal equalprg=pandoc\ -t\ markdown\ --reference-links
+setlocal errorformat=
+setlocal expandtab
+if &filetype != 'pandoc'
+setlocal filetype=pandoc
+endif
+setlocal foldcolumn=0
+setlocal foldenable
+setlocal foldexpr=pandoc#MarkdownLevel()
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=expr
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatoptions=1
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=0
+setlocal include=
+setlocal includeexpr=
+setlocal indentexpr=
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
+setlocal noinfercase
+setlocal iskeyword=48-57,a-z,A-Z,192-255
+setlocal keywordprg=
+setlocal linebreak
+setlocal nolisp
+setlocal nolist
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=hex
+setlocal number
+setlocal numberwidth=4
+setlocal omnifunc=pandoc#Pandoc_Complete
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+setlocal norelativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal shiftwidth=4
+setlocal noshortname
+setlocal nosmartindent
+setlocal softtabstop=4
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal statusline=
+setlocal suffixesadd=
+setlocal swapfile
+setlocal synmaxcol=3000
+if &syntax != 'pandoc'
+setlocal syntax=pandoc
+endif
+setlocal tabstop=8
+setlocal tags=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal undofile
+setlocal nowinfixheight
+setlocal nowinfixwidth
+setlocal wrap
+setlocal wrapmargin=0
+1
+normal zo
+4
+normal zo
+7
+normal zo
+11
+normal zo
+7
+normal zo
+4
+normal zc
+28
+normal zo
+31
+normal zo
+33
+normal zc
+40
+normal zo
+31
+normal zo
+64
+normal zc
+28
+normal zo
+96
+normal zo
+99
+normal zo
+101
+normal zc
+110
+normal zo
+99
+normal zo
+115
+normal zc
+139
+normal zo
+149
+normal zo
+139
+normal zo
+154
+normal zc
+171
+normal zo
+178
+normal zo
+171
+normal zo
+199
+normal zo
+96
+normal zo
+1
+normal zo
+let s:l = 40 - ((39 * winheight(0) + 26) / 53)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+40
+normal! 0
+lcd ~/py/crm
+let &so = s:so_save | let &siso = s:siso_save
+doautoall SessionLoadPost
+" vim: set ft=vim :
