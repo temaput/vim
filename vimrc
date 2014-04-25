@@ -152,7 +152,6 @@ if has("win32")
     if has("gui_running")
         colorscheme solarized
         set guioptions=egmt
-        set background=light
         set lines=55
         set columns=150
         imap <C-Space> 
