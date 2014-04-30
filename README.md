@@ -1,5 +1,5 @@
 vim
-=============
+==============
 my vim folder
 should be in ~/.vim (linux) or $HOME/vimfiles (windows)
 - to clone do
