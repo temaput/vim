@@ -1,6 +1,8 @@
 " Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
+set backup		" keep a backup file (restore to previous version)
+set undofile		" keep an undo file (undo changes after closing)
 
 set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
@@ -189,10 +191,10 @@ map <DOWN> gj
 map <UP> gk
 imap <UP> <ESC>gki
 imap <DOWN> <ESC>gji
-nmap <C-H> <C-W>h
-nmap <C-J> <C-W>j
-nmap <C-K> <C-W>k
-nmap <C-L> <C-W>l
+nnoremap <C-H> <C-W>h
+nnoremap <C-J> <C-W>j
+nnoremap <C-K> <C-W>k
+nnoremap <C-L> <C-W>l
 noremap <F12> <ESC>:syntax sync fromstart<CR>
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
 " Use <F11> to toggle between 'paste' and 'nopaste'
@@ -224,3 +226,6 @@ function NERDTreeHorizontal()
     wincmd J " move NERDTree to the very bottom
     resize 15
 endfunction
+
+let g:NERDTreeMapJumpNextSibling=''
+let g:NERDTreeMapJumpPrevSibling=''

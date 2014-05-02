@@ -818,7 +818,7 @@ func! s:FThtml()
       setf xhtml
       return
     endif
-    if getline(n) =~ '{%\s*\(extends\|block\|comment\)\>'
+    if getline(n) =~ '{[#%].*[#%]}' "'{%\s*\(extends\|block\|comment\|load\)\>'
       setf htmldjango
       return
     endif
