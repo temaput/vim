@@ -78,8 +78,12 @@ execute pathogen#infect()
 
 set gfn=Terminus:h12:cRUSSIAN
 set keymap=russian-jcukenwin 
+"set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
+" Позволяет работать с обычными переключениями клавиатуры. Уже привык к
+" С-Пробел
 set lbr
 set iminsert=0
+set imsearch=0
 set iskeyword=@,48-57,_,192-255
 set sw=4
 set softtabstop=4
@@ -205,8 +209,12 @@ noremap <Leader>n <ESC>:NERDTree<CR>
 noremap <Leader>h <ESC>:call NERDTreeHorizontal()<CR>
 imap <C-@> 
 cmap <C-@> 
+nmap <silent> <C-@> :call ToggleKeymap()<CR>
 imap <C-Space> 
 cmap <C-Space> 
+nmap <silent> <C-Space> :call ToggleKeymap()<CR>
+let g:NERDTreeMapJumpNextSibling=''
+let g:NERDTreeMapJumpPrevSibling=''
 
 " mappings end ============================================================
 
@@ -227,5 +235,10 @@ function NERDTreeHorizontal()
     resize 15
 endfunction
 
-let g:NERDTreeMapJumpNextSibling=''
-let g:NERDTreeMapJumpPrevSibling=''
+function ToggleKeymap()
+    if &iminsert
+        set iminsert=0
+    else
+        set iminsert=1
+    endif
+endfunction
