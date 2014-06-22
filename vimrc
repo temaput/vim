@@ -100,6 +100,12 @@ let g:LargeFile=50
 filetype plugin indent on
 
 let g:flake8_ignore = "E126,E128,E701,F403"
+let g:syntastic_python_flake8_quiet_messages = { "level": [],
+            \ "type": "",
+            \ "regex": [], 
+            \ "file": []}
+"
+"E101,E111,E12,E13,E2,E3,E4,E5,E7,W,F4,F81
 
 " Use case insensitive search, except when using capital letters
 set ignorecase
@@ -229,7 +235,7 @@ function Flake8testCritical()
     call Flake8('')
     let g:flake8_ignore = l:oldignore
 endfunction
-autocmd BufWritePost *.py call Flake8testCritical()
+"autocmd BufWritePost *.py call Flake8testCritical()
 
 function NERDTreeHorizontal()
     NERDTree " open NERDTree
