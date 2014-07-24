@@ -99,11 +99,11 @@ set statusline=%<%t%h%m%r\ \ %a\ %{strftime(\"%c\")}%=0x%B\ line:%l,\ \ col:%c%V
 let g:LargeFile=50
 filetype plugin indent on
 
-let g:flake8_ignore = "E126,E128,E701,F403"
-let g:syntastic_python_flake8_quiet_messages = { "level": [],
-            \ "type": "",
-            \ "regex": [], 
-            \ "file": []}
+"let g:flake8_ignore = "E126,E128,E701,F403"
+"let g:syntastic_python_flake8_quiet_messages = { "level": [],
+"            \ "type": "",
+"            \ "regex": [], 
+"            \ "file": []}
 "
 "E101,E111,E12,E13,E2,E3,E4,E5,E7,W,F4,F81
 
@@ -211,7 +211,7 @@ noremap <F12> <ESC>:syntax sync fromstart<CR>
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
 " Use <F11> to toggle between 'paste' and 'nopaste'
 set pastetoggle=<F10>
-nnoremap <F11> :nohl<CR>:redraw!<CR>
+nnoremap <F11> :nohl<CR>:SyntasticReset<CR>:redraw!<CR>
 nnoremap <silent> <Leader>t :TagbarToggle<CR>
 noremap <Leader>n <ESC>:NERDTree<CR>
 noremap <Leader>h <ESC>:call NERDTreeHorizontal()<CR>

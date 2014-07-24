@@ -144,7 +144,7 @@ call s:AddITags(['area', 'article', 'aside', 'audio', 'bdi', 'canvas',
     \ 'wbr', 'text'])
 
 " django tags to be treated like <div>
-call s:AddDjangoITags(['block', 'if', 'for'])
+call s:AddDjangoITags(['block', 'if', 'for', 'with'])
 "}}}
 " Add Block Tags: contain alien content "{{{
 call s:AddBlockTag('pre', 2)

@@ -61,8 +61,25 @@ if g:pydoc_executable
     setlocal keywordprg=pydoc
 endif
 
-iab <buffer> shebang #!/usr/bin/env python# vi:fileencoding=utf-8from __future__ import absolute_importfrom __future__ import divisionfrom __future__ import unicode_literals
+func! s:removeTrailingSpaces()
+
+    exec '%s/\s\+\n/\r/e'
+    if empty(getline(line("$")))
+        let save_cursor = getpos(".")
+        exec '$'
+        "remove all last empty lines
+        exec '?\S?+1, $d'
+        "remove all trailing spaces
+        call setpos('.', save_cursor)
+    endif
+endfunc
+    
+let s:shebang = "#!/usr/bin/env python<cr>"
+let s:shebang = s:shebang . "# vi:fileencoding=utf-8<cr>"
+let s:shebang = s:shebang . "from __future__ import absolute_importfrom __future__ import divisionfrom __future__ import unicode_literals"
+exec "iab <buffer> shebang"  s:shebang
 iab <buffer> logger from logging import getLogger<cr>log = getLogger(
+au BufWrite <buffer> call s:removeTrailingSpaces()
 setlocal foldignore=""
 let &cpo = s:keepcpo
 unlet s:keepcpo
