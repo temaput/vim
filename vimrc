@@ -99,7 +99,13 @@ set statusline=%<%t%h%m%r\ \ %a\ %{strftime(\"%c\")}%=0x%B\ line:%l,\ \ col:%c%V
 let g:LargeFile=50
 filetype plugin indent on
 
-let g:flake8_ignore = "E126,E128,E701,F403"
+"let g:flake8_ignore = "E126,E128,E701,F403"
+"let g:syntastic_python_flake8_quiet_messages = { "level": [],
+"            \ "type": "",
+"            \ "regex": [], 
+"            \ "file": []}
+"
+"E101,E111,E12,E13,E2,E3,E4,E5,E7,W,F4,F81
 
 " Use case insensitive search, except when using capital letters
 set ignorecase
@@ -126,7 +132,7 @@ set ttimeoutlen=50
 nnoremap Y y$
 
 set autoread
-set autowriteall 
+"set autowriteall 
 set history=1000
 
 if strftime("%H")+0 > 16 || strftime("%H")+0 < 6
@@ -198,12 +204,14 @@ imap <DOWN> <ESC>gji
 nnoremap <C-H> <C-W>h
 nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
+nmap <Leader>\\ :resize<CR>:vertical resize 85<CR>
+nmap <Leader>\ :resize 50<CR>:vertical resize 85<CR>
 nnoremap <C-L> <C-W>l
 noremap <F12> <ESC>:syntax sync fromstart<CR>
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
 " Use <F11> to toggle between 'paste' and 'nopaste'
-set pastetoggle=<F11>
-nnoremap <F10> :nohl<CR>:redraw!<CR>
+set pastetoggle=<F10>
+nnoremap <F11> :nohl<CR>:SyntasticReset<CR>:redraw!<CR>
 nnoremap <silent> <Leader>t :TagbarToggle<CR>
 noremap <Leader>n <ESC>:NERDTree<CR>
 noremap <Leader>h <ESC>:call NERDTreeHorizontal()<CR>
@@ -227,7 +235,7 @@ function Flake8testCritical()
     call Flake8('')
     let g:flake8_ignore = l:oldignore
 endfunction
-autocmd BufWritePost *.py call Flake8testCritical()
+"autocmd BufWritePost *.py call Flake8testCritical()
 
 function NERDTreeHorizontal()
     NERDTree " open NERDTree
@@ -242,3 +250,17 @@ function ToggleKeymap()
         set iminsert=1
     endif
 endfunction
+
+" =========================================================================
+" Add the virtualenv's site-packages to vim path
+"
+py << EOF
+import os
+import sys
+import vim
+if 'VIRTUAL_ENV' in os.environ:
+    project_base_dir = os.environ['VIRTUAL_ENV']
+    sys.path.insert(0, project_base_dir)
+    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+    execfile(activate_this, dict(__file__=activate_this))
+EOF

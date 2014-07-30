@@ -28,15 +28,15 @@ if exists("b:did_indent")
 endif
 let b:did_indent = 1
 
-setlocal indentexpr=HtmlIndent()
+setlocal indentexpr=HtmlDjangoIndent()
 setlocal indentkeys=o,O,<Return>,<>>,{,},!^F
+setlocal ai
 
 let b:indent = {"lnum": -1}
 let b:undo_indent = "set inde< indk<| unlet b:indent"
-setlocal ai
 
 " Load Once:
-if exists("*HtmlIndent")
+if exists("*HtmlDjangoIndent")
     call HtmlIndent_CheckUserSettings()
     finish
 endif
@@ -51,6 +51,8 @@ else
 endif
 
 let s:cpo_save = &cpo
+let s:swendtag_pattern = '^\s*\(</\|{%\s*end\)'
+let s:tagname_pattern = '\(<\|{%\s*\)\zs\/\=\w\+\>\|<!--\|-->'
 set cpo-=C
 "}}}
 
@@ -82,6 +84,12 @@ let s:endtags = [0,0,0,0,0,0,0,0]   " some places unused
 let s:newstate = {}
 let s:countonly = 0
  "}}}
+func! s:AddDjangoITags(taglist) "{{{
+    for itag in a:taglist
+	let s:indent_tags[itag] = 1
+        let s:indent_tags['end'.itag] = -1
+    endfor
+endfunc "}}}
 func! s:AddITags(taglist) "{{{
     for itag in a:taglist
 	let s:indent_tags[itag] = 1
@@ -135,6 +143,8 @@ call s:AddITags(['area', 'article', 'aside', 'audio', 'bdi', 'canvas',
     \ 'progress', 'ruby', 'section', 'svg', 'texture', 'time', 'video',
     \ 'wbr', 'text'])
 
+" django tags to be treated like <div>
+call s:AddDjangoITags(['block', 'if', 'for', 'with'])
 "}}}
 " Add Block Tags: contain alien content "{{{
 call s:AddBlockTag('pre', 2)
@@ -152,7 +162,7 @@ func! s:CountITags(...) "{{{
 
     if a:0==0
 	let s:block = s:newstate.block
-	let tmpline = substitute(s:curline, '<\zs\/\=\w\+\>\|<!--\|-->', '\=s:CheckTag(submatch(0))', 'g')
+	let tmpline = substitute(s:curline, s:tagname_pattern, '\=s:CheckTag(submatch(0))', 'g')
 	if s:block == 3
 	    let s:newstate.scripttype = s:GetScriptType(matchstr(tmpline, '\C.*<SCRIPT\>\zs[^>]*'))
 	endif
@@ -160,7 +170,7 @@ func! s:CountITags(...) "{{{
     else
 	let s:block = 0		" assume starting outside of a block
 	let s:countonly = 1	" don't change state
-	let tmpline = substitute(s:altline, '<\zs\/\=\w\+\>\|<!--\|-->', '\=s:CheckTag(submatch(0))', 'g')
+	let tmpline = substitute(s:altline, s:tagname_pattern, '\=s:CheckTag(submatch(0))', 'g')
 	let s:countonly = 0
     endif
 endfunc "}}}
@@ -297,7 +307,7 @@ func! s:FreshState(lnum) "{{{
 	" handle special case: previous line (= state.lnum) contains a
 	" closing blocktag which is preceded by line-noise;
 	" blocktag == "/..."
-	let swendtag = match(tagline, '^\s*</') >= 0
+	let swendtag = match(tagline, s:swendtag_pattern) >= 0
 	if !swendtag
 	    let [bline, bcol] = searchpos('<'.blocktag[1:].'\>', "bW")
 	    let s:altline = tolower(getline(bline)[: bcol-2])
@@ -343,7 +353,7 @@ func! s:FreshState(lnum) "{{{
     call s:CountITags(1)
     let state.baseindent = indent(state.lnum) + s:nextrel * s:ShiftWidth()
     " line starts with end tag
-    let swendtag = match(s:altline, '^\s*</') >= 0
+    let swendtag = match(s:altline, s:swendtag_pattern) >= 0
     if !swendtag
 	let state.baseindent += s:curind * s:ShiftWidth()
     endif
@@ -433,7 +443,7 @@ func! s:Alien5() "{{{
     return -1
 endfunc "}}}
 
-func! HtmlIndent() "{{{
+func! HtmlDjangoIndent() "{{{
     let s:curline = tolower(getline(v:lnum))
     let indentunit = s:ShiftWidth()
 
@@ -441,7 +451,7 @@ func! HtmlIndent() "{{{
     let s:newstate.lnum = v:lnum
 
     " does the line start with a closing tag?
-    let swendtag = match(s:curline, '^\s*</') >= 0
+    let swendtag = match(s:curline, s:swendtag_pattern) >= 0
 
     if prevnonblank(v:lnum-1) != b:indent.lnum || (exists("b:html_indent_usestate") && !b:html_indent_usestate)
 	" start over, don't use state
