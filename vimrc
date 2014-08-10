@@ -226,6 +226,10 @@ let g:NERDTreeMapJumpPrevSibling=''
 
 " mappings end ============================================================
 
+" User commands ===========================================================
+
+command IndentXML syn clear |%s/></>\r</g |exec "normal gg=G" |syn on
+
 " =========================================================================
 " Common funcs
 
