@@ -76,7 +76,7 @@ endfunc
     
 let s:shebang = "#!/usr/bin/env python<cr>"
 let s:shebang = s:shebang . "# vi:fileencoding=utf-8<cr>"
-let s:shebang = s:shebang . "from __future__ import absolute_importfrom __future__ import divisionfrom __future__ import unicode_literals"
+let s:shebang = s:shebang . "from __future__ import absolute_importfrom __future__ import divisionfrom __future__ import unicode_literalsfrom __future__ import print_function<cr>"
 exec "iab <buffer> shebang"  s:shebang
 iab <buffer> logger from logging import getLogger<cr>log = getLogger(
 au BufWrite <buffer> call s:removeTrailingSpaces()
