@@ -76,12 +76,13 @@ execute pathogen#infect()
 
 "--------- tema ------------------
 
-set gfn=Terminus:h12:cRUSSIAN
-set keymap=russian-jcukenwin 
-"set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
+"set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz,ЁЭЖЪХ;\|\":}{,ъх;][,ЮБ;><,ю.,б\,,"№%:\,.\;;@#$%^&*,ё\\,э',ж\;,
 " Позволяет работать с обычными переключениями клавиатуры. Уже привык к
 " С-Пробел
+let &langmap='йцукенгшщзхъфывапролджэячсмитьбюЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;qwertyuiop[]asdfghjkl\;' . "'" . 'zxcvbnm\,.QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>,' . '№#,Ё|,ё\\'
 set lbr
+
+set keymap=russian-jcukenwin 
 set iminsert=0
 set imsearch=0
 set iskeyword=@,48-57,_,192-255
@@ -146,6 +147,7 @@ endif
 " =======================================================================
 " Only in MS Windows
 if has("win32")
+    set gfn=Terminus:h12:cRUSSIAN
     source $HOME/vimfiles/mymswin.vim  " Load standart windows hotkeys
     set fileencodings=ucs-bom,utf-8,cp1251,koi8-r,cp866
     set encoding=utf-8
@@ -176,6 +178,7 @@ endif "win32 only =======================================================
 " =======================================================================
 " Only in Linux
 if has("unix")
+    "set gfn=Terminus:h12:cRUSSIAN
     set bdir=~/tmp/vimbackups
     set undodir=~/tmp/vimbackups
     colorscheme solarized
@@ -193,6 +196,17 @@ if has("unix")
     set t_Co=16 
 endif "linux only =======================================================
 
+"======================================== 
+"only on mac not on macvim
+if has("mac")
+    set keymap=russian-jcukenmac 
+    set iminsert=0
+    set imsearch=0
+    if !has("gui_macvim")
+        colo default
+    endif
+endif
+
 
 " ========================================================================
 " Common mappings
@@ -207,11 +221,11 @@ nnoremap <C-K> <C-W>k
 nmap <Leader>\\ :resize<CR>:vertical resize 85<CR>
 nmap <Leader>\ :resize 50<CR>:vertical resize 85<CR>
 nnoremap <C-L> <C-W>l
-noremap <F12> <ESC>:syntax sync fromstart<CR>
-inoremap <F12> <C-o>:syntax sync fromstart<CR>
+noremap <Leader>s <ESC>:syntax sync fromstart<CR>
+inoremap <Leader>s <C-o>:syntax sync fromstart<CR>
 " Use <F11> to toggle between 'paste' and 'nopaste'
 set pastetoggle=<F10>
-nnoremap <F11> :nohl<CR>:SyntasticReset<CR>:redraw!<CR>
+nnoremap <Leader>r :nohl<CR>:SyntasticReset<CR>:redraw!<CR>
 nnoremap <silent> <Leader>t :TagbarToggle<CR>
 noremap <Leader>n <ESC>:NERDTree<CR>
 noremap <Leader>h <ESC>:call NERDTreeHorizontal()<CR>
