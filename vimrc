@@ -8,6 +8,66 @@ set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
 set incsearch		" do incremental searching
 
+filetype off
+
+"=====================================================
+" Vundle settings
+"=====================================================
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'		" let Vundle manage Vundle, required
+
+"---------=== Code/project navigation ===-------------
+Plugin 'scrooloose/nerdtree' 	    	" Project and file navigation
+Plugin 'majutsushi/tagbar'          	" Class/module browser
+
+"------------------=== Other ===----------------------
+Plugin 'bling/vim-airline'   	    	" Lean & mean status/tabline for vim
+Plugin 'fisadev/FixedTaskList.vim'  	" Pending tasks list
+Plugin 'rosenfeld/conque-term'      	" Consoles as buffers
+Plugin 'tpope/vim-surround'	   	" Parentheses, brackets, quotes, XML tags, and more
+Plugin 'altercation/vim-colors-solarized' " Solarized colorscheme
+Plugin 'nathanaelkane/vim-indent-guides.git'    "Indent guides in vim
+
+"--------------=== Snippets support ===---------------
+"Plugin 'MarcWeber/vim-addon-mw-utils'	" dependencies #1
+"Plugin 'tomtom/tlib_vim'		" dependencies #2
+"Plugin 'garbas/vim-snipmate'		" Snippets manager
+Plugin 'SirVer/ultisnips'               " Unltra snippet manager compatible with YCM
+Plugin 'honza/vim-snippets'		" snippets repo
+
+"---------------=== Languages support ===-------------
+"---- General ---
+Plugin 'scrooloose/syntastic.git'       "Syntax checking tool for a lot of langs
+Plugin 'Valloric/YouCompleteMe'         "  C/C++/Objective-C and Python code completion
+
+" --- Python ---
+Plugin 'hynek/vim-python-pep8-indent'   "modifies vim_’s indentation behavior to comply with PEP8
+"Plugin 'klen/python-mode'	        " Python mode (docs, refactor, lints, highlighting, run and ipdb and more)
+"Plugin 'davidhalter/jedi-vim' 		" Jedi-vim autocomplete plugin
+"Plugin 'mitsuhiko/vim-jinja'		" Jinja support for vim
+"Plugin 'mitsuhiko/vim-python-combined'  " Combined Python 2/3 for Vim
+
+
+" --- HTML/CSS -----
+Plugin 'mattn/emmet-vim'                "Emmet aka ZEN-coding
+Plugin 'skammer/vim-css-color'
+Plugin 'hail2u/vim-css3-syntax'
+Plugin 'groenewege/vim-less'            " syntax highlighting, indenting and autocompletion for LESS
+
+" --- Javascript ---
+"Plugin 'pangloss/vim-javascript'        "this bundle provides syntax and indent plugins for js
+Plugin 'jelera/vim-javascript-syntax'   " Enhanced JavaScript Syntax for Vim
+Plugin 'marijnh/tern_for_vim'           "js autocomplete basic
+Plugin 'othree/javascript-libraries-syntax.vim' "Js autocomplete libs (jQuery)
+
+call vundle#end()            		" required
+
+
+"execute pathogen#infect()
+
 " Don't use Ex mode, use Q for formatting
 map Q gq
 
@@ -70,9 +130,14 @@ if !exists(":DiffOrig")
 endif
 " =======================================================================
 
+"--------------------------------- UltSnip
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:snips_author="Artem Putilov"
 
-
-execute pathogen#infect()
+"-------------------------- YCM -------------
+let g:ycm_confirm_extra_conf = 0     
 
 "--------- tema ------------------
 
@@ -202,9 +267,10 @@ if has("mac")
     set keymap=russian-jcukenmac 
     set iminsert=0
     set imsearch=0
-    if !has("gui_macvim")
-        colo default
-    endif
+   " if !has("gui_running")
+   "     let g:solarized_termcolors=256
+   "     colo lucario
+   " endif
 endif
 
 
@@ -227,7 +293,8 @@ inoremap <Leader>s <C-o>:syntax sync fromstart<CR>
 set pastetoggle=<F10>
 nnoremap <Leader>r :nohl<CR>:SyntasticReset<CR>:redraw!<CR>
 nnoremap <silent> <Leader>t :TagbarToggle<CR>
-noremap <Leader>n <ESC>:NERDTree<CR>
+noremap <Leader>n <ESC>:NERDTreeFind<CR>
+noremap <Leader>N <ESC>:NERDTreeClose<CR>
 noremap <Leader>h <ESC>:call NERDTreeHorizontal()<CR>
 imap <C-@> 
 cmap <C-@> 
@@ -240,6 +307,10 @@ let g:NERDTreeMapJumpPrevSibling=''
 
 " mappings end ============================================================
 
+" =========================================================================
+" YCM settings
+let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+let g:ycm_key_invoke_completion = '<leader>c'
 " User commands ===========================================================
 
 command IndentXML syn clear |%s/></>\r</g |exec "normal gg=G" |syn on
@@ -253,6 +324,19 @@ function Flake8testCritical()
     call Flake8('')
     let g:flake8_ignore = l:oldignore
 endfunction
+
+let g:ycm_show_diagnostics_ui = 0
+command ToggleYCMAutoSpell call ToggleYCMAutoSpell()
+function! ToggleYCMAutoSpell()
+    if (g:ycm_show_diagnostics_ui)
+        let g:ycm_show_diagnostics_ui = 0
+        echo "Its off"
+    else
+        let g:ycm_show_diagnostics_ui = 1
+        echo "Its on"
+    endif
+endfunction
+
 "autocmd BufWritePost *.py call Flake8testCritical()
 
 function NERDTreeHorizontal()
