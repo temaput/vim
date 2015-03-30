@@ -8,7 +8,7 @@ set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
 set incsearch		" do incremental searching
 
-filetype off
+filetype off            " need to be off before Vundle
 
 "=====================================================
 " Vundle settings
@@ -17,51 +17,51 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'gmarik/Vundle.vim'		" let Vundle manage Vundle, required
+    Plugin 'gmarik/Vundle.vim'		" let Vundle manage Vundle, required
 
-"---------=== Code/project navigation ===-------------
-Plugin 'scrooloose/nerdtree' 	    	" Project and file navigation
-Plugin 'majutsushi/tagbar'          	" Class/module browser
+    "---------=== Code/project navigation ===-------------
+    Plugin 'scrooloose/nerdtree' 	    	" Project and file navigation
+    Plugin 'majutsushi/tagbar'          	" Class/module browser
 
-"------------------=== Other ===----------------------
-Plugin 'bling/vim-airline'   	    	" Lean & mean status/tabline for vim
-Plugin 'fisadev/FixedTaskList.vim'  	" Pending tasks list
-Plugin 'rosenfeld/conque-term'      	" Consoles as buffers
-Plugin 'tpope/vim-surround'	   	" Parentheses, brackets, quotes, XML tags, and more
-Plugin 'altercation/vim-colors-solarized' " Solarized colorscheme
-Plugin 'nathanaelkane/vim-indent-guides.git'    "Indent guides in vim
+    "------------------=== Other ===----------------------
+    Plugin 'bling/vim-airline'   	    	" Lean & mean status/tabline for vim
+    Plugin 'fisadev/FixedTaskList.vim'  	" Pending tasks list
+    Plugin 'rosenfeld/conque-term'      	" Consoles as buffers
+    Plugin 'tpope/vim-surround'	   	" Parentheses, brackets, quotes, XML tags, and more
+    Plugin 'altercation/vim-colors-solarized' " Solarized colorscheme
+    Plugin 'nathanaelkane/vim-indent-guides.git'    "Indent guides in vim
 
-"--------------=== Snippets support ===---------------
-"Plugin 'MarcWeber/vim-addon-mw-utils'	" dependencies #1
-"Plugin 'tomtom/tlib_vim'		" dependencies #2
-"Plugin 'garbas/vim-snipmate'		" Snippets manager
-Plugin 'SirVer/ultisnips'               " Unltra snippet manager compatible with YCM
-Plugin 'honza/vim-snippets'		" snippets repo
+    "--------------=== Snippets support ===---------------
+    "Plugin 'MarcWeber/vim-addon-mw-utils'	" dependencies #1
+    "Plugin 'tomtom/tlib_vim'		" dependencies #2
+    "Plugin 'garbas/vim-snipmate'		" Snippets manager
+    Plugin 'SirVer/ultisnips'               " Unltra snippet manager compatible with YCM
+    Plugin 'honza/vim-snippets'		" snippets repo
 
-"---------------=== Languages support ===-------------
-"---- General ---
-Plugin 'scrooloose/syntastic.git'       "Syntax checking tool for a lot of langs
-Plugin 'Valloric/YouCompleteMe'         "  C/C++/Objective-C and Python code completion
+    "---------------=== Languages support ===-------------
+    "---- General ---
+    Plugin 'scrooloose/syntastic.git'       "Syntax checking tool for a lot of langs
+    Plugin 'Valloric/YouCompleteMe'         "  C/C++/Objective-C and Python code completion
 
-" --- Python ---
-Plugin 'hynek/vim-python-pep8-indent'   "modifies vim_’s indentation behavior to comply with PEP8
-"Plugin 'klen/python-mode'	        " Python mode (docs, refactor, lints, highlighting, run and ipdb and more)
-"Plugin 'davidhalter/jedi-vim' 		" Jedi-vim autocomplete plugin
-"Plugin 'mitsuhiko/vim-jinja'		" Jinja support for vim
-"Plugin 'mitsuhiko/vim-python-combined'  " Combined Python 2/3 for Vim
+    " --- Python ---
+    Plugin 'hynek/vim-python-pep8-indent'   "modifies vim_’s indentation behavior to comply with PEP8
+    "Plugin 'klen/python-mode'	        " Python mode (docs, refactor, lints, highlighting, run and ipdb and more)
+    "Plugin 'davidhalter/jedi-vim' 		" Jedi-vim autocomplete plugin
+    "Plugin 'mitsuhiko/vim-jinja'		" Jinja support for vim
+    "Plugin 'mitsuhiko/vim-python-combined'  " Combined Python 2/3 for Vim
 
 
-" --- HTML/CSS -----
-Plugin 'mattn/emmet-vim'                "Emmet aka ZEN-coding
-Plugin 'skammer/vim-css-color'
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'groenewege/vim-less'            " syntax highlighting, indenting and autocompletion for LESS
+    " --- HTML/CSS -----
+    Plugin 'mattn/emmet-vim'                "Emmet aka ZEN-coding
+    Plugin 'skammer/vim-css-color'
+    Plugin 'hail2u/vim-css3-syntax'
+    Plugin 'groenewege/vim-less'            " syntax highlighting, indenting and autocompletion for LESS
 
-" --- Javascript ---
-"Plugin 'pangloss/vim-javascript'        "this bundle provides syntax and indent plugins for js
-Plugin 'jelera/vim-javascript-syntax'   " Enhanced JavaScript Syntax for Vim
-Plugin 'marijnh/tern_for_vim'           "js autocomplete basic
-Plugin 'othree/javascript-libraries-syntax.vim' "Js autocomplete libs (jQuery)
+    " --- Javascript ---
+    "Plugin 'pangloss/vim-javascript'        "this bundle provides syntax and indent plugins for js
+    Plugin 'jelera/vim-javascript-syntax'   " Enhanced JavaScript Syntax for Vim
+    Plugin 'marijnh/tern_for_vim'           "js autocomplete basic
+    Plugin 'othree/javascript-libraries-syntax.vim' "Js autocomplete libs (jQuery)
 
 call vundle#end()            		" required
 
@@ -78,7 +78,7 @@ inoremap <C-U> <C-G>u<C-U>
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
     " set mouse=a
-    set mouse=vnh
+    set mouse=vnh "use mouse for everything except in insert mode
 endif
 
 " Switch syntax highlighting on, when the terminal has colors
@@ -137,41 +137,28 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:snips_author="Artem Putilov"
 
 "-------------------------- YCM -------------
-let g:ycm_confirm_extra_conf = 0     
+let g:ycm_confirm_extra_conf = 0
 
 "--------- tema ------------------
 
-"set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz,ЁЭЖЪХ;\|\":}{,ъх;][,ЮБ;><,ю.,б\,,"№%:\,.\;;@#$%^&*,ё\\,э',ж\;,
-" Позволяет работать с обычными переключениями клавиатуры. Уже привык к
-" С-Пробел
+" Позволяет работать с обычными переключениями клавиатуры.
 let &langmap='йцукенгшщзхъфывапролджэячсмитьбюЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;qwertyuiop[]asdfghjkl\;' . "'" . 'zxcvbnm\,.QWERTYUIOP{}ASDFGHJKL:"ZXCVBNM<>,' . '№#,Ё|,ё\\'
 set lbr
 
-set keymap=russian-jcukenwin 
-set iminsert=0
-set imsearch=0
-set iskeyword=@,48-57,_,192-255
+" Добавляет собственное переключение (С-Пробел)
+set keymap=russian-jcukenwin
 set sw=4
 set softtabstop=4
 set expandtab
 set fileencodings=utf-8,cp1251,koi8-r,cp866   "for linux
 
-let g:solarized_italic=0    "default value is 1
+" let g:solarized_italic=0    "default value is 1
 
 set foldmethod=indent
 set colorcolumn=80
 set nu
 set statusline=%<%t%h%m%r\ \ %a\ %{strftime(\"%c\")}%=0x%B\ line:%l,\ \ col:%c%V\ %P
-let g:LargeFile=50
-filetype plugin indent on
-
-"let g:flake8_ignore = "E126,E128,E701,F403"
-"let g:syntastic_python_flake8_quiet_messages = { "level": [],
-"            \ "type": "",
-"            \ "regex": [], 
-"            \ "file": []}
-"
-"E101,E111,E12,E13,E2,E3,E4,E5,E7,W,F4,F81
+" filetype plugin indent on
 
 " Use case insensitive search, except when using capital letters
 set ignorecase
@@ -181,26 +168,42 @@ set smartcase
 " dialogue asking if you wish to save changed files.
 set confirm
 
+" Show “invisible” characters
+set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
+
+" Disable error bells
+set noerrorbells
+
+" Use the OS clipboard by default (on versions compiled with `+clipboard`)
+set clipboard=unnamed
+" Enhance command-line completion
 set wildmenu
-set laststatus=2
+set laststatus=2  " always show status line
+" Allow backspace in insert mode
 set backspace=indent,eol,start
-set complete-=i
+" Show matching bracket
 set showmatch
+" Expand tabs (fill with spaces) only at the begining of line
 set smarttab
+" Show the filename in the window titlebar
+set title
+" Start scrolling three lines before the horizontal window border
+set scrolloff=3
 
-set nrformats-=octal
+" Always indent to multiple of sw
 set shiftround
-
-set ttimeout
-set ttimeoutlen=50
-
-" Make Y consistent with C and D.  See :help Y.
+" Add the g flag to search/replace by default
+set gdefault
+"
+" Make Y consistent with C and D.  See :help Y. Y yanks from cursor to the
+" end of line. Like C and D
 nnoremap Y y$
 
+" Reload file changed outside vim
 set autoread
-"set autowriteall 
 set history=1000
 
+" change the bg according to the time of day
 if strftime("%H")+0 > 16 || strftime("%H")+0 < 6
     "dark supposed to be here
     set background=dark
@@ -241,11 +244,19 @@ if has("win32")
 endif "win32 only =======================================================
 
 " =======================================================================
-" Only in Linux
+" Only in Linux and mac
 if has("unix")
     "set gfn=Terminus:h12:cRUSSIAN
-    set bdir=~/tmp/vimbackups
-    set undodir=~/tmp/vimbackups
+    " Centralize backups, swapfiles and undo history
+    set backupdir=~/.vim/backups
+    set directory=~/.vim/swaps
+    if exists("&undodir")
+            set undodir=~/.vim/undo
+    endif
+
+    " Don’t create backups when editing files in certain directories
+    set backupskip=/tmp/*,/private/tmp/*,~/tmp/*
+
     colorscheme solarized
     if &term =~ '^xterm'
         " solid underscore
@@ -258,52 +269,54 @@ if has("unix")
         " 5 -> blinking vertical bar
         " 6 -> solid vertical bar
     endif
-    set t_Co=16 
+    set t_Co=16
 endif "linux only =======================================================
 
-"======================================== 
+"========================================
 "only on mac not on macvim
 if has("mac")
-    set keymap=russian-jcukenmac 
-    set iminsert=0
-    set imsearch=0
+    set keymap=russian-jcukenmac
    " if !has("gui_running")
    "     let g:solarized_termcolors=256
    "     colo lucario
    " endif
 endif
 
+" default langmap off in normal and search (= default english)
+set iminsert=0
+set imsearch=0
+"
+" Change mapleader
+let mapleader=","
 
 " ========================================================================
 " Common mappings
 
-map <DOWN> gj
-map <UP> gk
-imap <UP> <ESC>gki
-imap <DOWN> <ESC>gji
-nnoremap <C-H> <C-W>h
-nnoremap <C-J> <C-W>j
-nnoremap <C-K> <C-W>k
-nmap <Leader>\\ :resize<CR>:vertical resize 85<CR>
-nmap <Leader>\ :resize 50<CR>:vertical resize 85<CR>
-nnoremap <C-L> <C-W>l
-noremap <Leader>s <ESC>:syntax sync fromstart<CR>
-inoremap <Leader>s <C-o>:syntax sync fromstart<CR>
-" Use <F11> to toggle between 'paste' and 'nopaste'
-set pastetoggle=<F10>
-nnoremap <Leader>r :nohl<CR>:SyntasticReset<CR>:redraw!<CR>
-nnoremap <silent> <Leader>t :TagbarToggle<CR>
-noremap <Leader>n <ESC>:NERDTreeFind<CR>
-noremap <Leader>N <ESC>:NERDTreeClose<CR>
-noremap <Leader>h <ESC>:call NERDTreeHorizontal()<CR>
-imap <C-@> 
-cmap <C-@> 
-nmap <silent> <C-@> :call ToggleKeymap()<CR>
-imap <C-Space> 
-cmap <C-Space> 
-nmap <silent> <C-Space> :call ToggleKeymap()<CR>
-let g:NERDTreeMapJumpNextSibling=''
-let g:NERDTreeMapJumpPrevSibling=''
+    " Save a file as root (,W)
+    noremap <leader>W :w !sudo tee % > /dev/null<CR>
+    map <DOWN> gj
+    map <UP> gk
+    imap <UP> <ESC>gki
+    imap <DOWN> <ESC>gji
+    nnoremap <C-H> <C-W>h
+    nnoremap <C-J> <C-W>j
+    nnoremap <C-K> <C-W>k
+    nnoremap <C-L> <C-W>l
+    noremap <Leader>s <ESC>:syntax sync fromstart<CR> :nohl<CR>:SyntasticReset<CR>:redraw!<CR>
+    inoremap <Leader>s <C-o>:syntax sync fromstart<CR>
+    " Use <F10> to toggle between 'paste' and 'nopaste'
+    set pastetoggle=<F10>
+    nnoremap <silent> <Leader>t :TagbarToggle<CR>
+    noremap <Leader>n <ESC>:NERDTreeFind<CR>
+    noremap <Leader>N <ESC>:NERDTreeClose<CR>
+    imap <C-@> 
+    cmap <C-@> 
+    nmap <silent> <C-@> :call ToggleKeymap()<CR>
+    imap <C-Space> 
+    cmap <C-Space> 
+    nmap <silent> <C-Space> :call ToggleKeymap()<CR>
+    let g:NERDTreeMapJumpNextSibling=''
+    let g:NERDTreeMapJumpPrevSibling=''
 
 " mappings end ============================================================
 
@@ -313,12 +326,14 @@ let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 let g:ycm_key_invoke_completion = '<leader>c'
 " User commands ===========================================================
 
-command IndentXML syn clear |%s/></>\r</g |exec "normal gg=G" |syn on
+command! IndentXML syn clear |%s/></>\r</g |exec "normal gg=G" |syn on
+command! ToggleYCMAutoSpell call ToggleYCMAutoSpell()
+command! StripWhitespace call StripWhitespace()
 
 " =========================================================================
 " Common funcs
 
-function Flake8testCritical()
+function! Flake8testCritical()
     let l:oldignore = g:flake8_ignore
     let g:flake8_ignore = "E101,E111,E12,E13,E2,E3,E4,E5,E7,W,F4,F81"
     call Flake8('')
@@ -326,7 +341,6 @@ function Flake8testCritical()
 endfunction
 
 let g:ycm_show_diagnostics_ui = 0
-command ToggleYCMAutoSpell call ToggleYCMAutoSpell()
 function! ToggleYCMAutoSpell()
     if (g:ycm_show_diagnostics_ui)
         let g:ycm_show_diagnostics_ui = 0
@@ -337,15 +351,8 @@ function! ToggleYCMAutoSpell()
     endif
 endfunction
 
-"autocmd BufWritePost *.py call Flake8testCritical()
 
-function NERDTreeHorizontal()
-    NERDTree " open NERDTree
-    wincmd J " move NERDTree to the very bottom
-    resize 15
-endfunction
-
-function ToggleKeymap()
+function! ToggleKeymap()
     if &iminsert
         set iminsert=0
     else
@@ -353,3 +360,12 @@ function ToggleKeymap()
     endif
 endfunction
 
+
+" Strip trailing whitespace (,ss)
+function! StripWhitespace()
+	let save_cursor = getpos(".")
+	let old_query = getreg('/')
+	:%s/\s\+$//e
+	call setpos('.', save_cursor)
+	call setreg('/', old_query)
+endfunction
