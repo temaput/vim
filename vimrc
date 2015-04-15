@@ -101,7 +101,7 @@ if has("autocmd")
         au!
 
         " For all text files set 'textwidth' to 78 characters.
-        autocmd FileType text setlocal textwidth=78
+        " autocmd FileType text setlocal textwidth=78
 
         " When editing a file, always jump to the last known cursor position.
         " Don't do it when the position is invalid or when inside an event handler
@@ -287,7 +287,7 @@ set iminsert=0
 set imsearch=0
 "
 " Change mapleader
-let mapleader=","
+" let mapleader="§"
 
 " ========================================================================
 " Common mappings
@@ -302,7 +302,7 @@ let mapleader=","
     nnoremap <C-J> <C-W>j
     nnoremap <C-K> <C-W>k
     nnoremap <C-L> <C-W>l
-    noremap <Leader>s <ESC>:syntax sync fromstart<CR> :nohl<CR>:SyntasticReset<CR>:redraw!<CR>
+    noremap <Leader>s <ESC>:syntax sync fromstart<CR>:nohl<CR>:SyntasticReset<CR>:redraw!<CR>
     inoremap <Leader>s <C-o>:syntax sync fromstart<CR>
     " Use <F10> to toggle between 'paste' and 'nopaste'
     set pastetoggle=<F10>
@@ -320,15 +320,26 @@ let mapleader=","
 
 " mappings end ============================================================
 
+" ========================================
+" Airline routines
+"
+" 1. define func or raw printf pattern line as a part (see statusline help)
+"
+call airline#parts#define_raw('charcode', '0x%B')  " print hex charcode
+function! AirlineInit()
+    let spc = g:airline_symbols.space
+    let g:airline_section_z = airline#section#create(['windowswap', spc, 'charcode', spc, '%3p%%', spc, 'linenr', ':%3v '])
+endfunction
+autocmd User AirlineAfterInit call AirlineInit()
+
+"
 " =========================================================================
 " YCM settings
 let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 let g:ycm_key_invoke_completion = '<leader>c'
 " User commands ===========================================================
 
-command! IndentXML syn clear |%s/></>\r</g |exec "normal gg=G" |syn on
-command! ToggleYCMAutoSpell call ToggleYCMAutoSpell()
-command! StripWhitespace call StripWhitespace()
+command! IndentXML syn clear |%s/></>\r</ |exec "normal gg=G" |syn on
 
 " =========================================================================
 " Common funcs
@@ -340,6 +351,7 @@ function! Flake8testCritical()
     let g:flake8_ignore = l:oldignore
 endfunction
 
+command! ToggleYCMAutoSpell call ToggleYCMAutoSpell()
 let g:ycm_show_diagnostics_ui = 0
 function! ToggleYCMAutoSpell()
     if (g:ycm_show_diagnostics_ui)
@@ -362,10 +374,28 @@ endfunction
 
 
 " Strip trailing whitespace (,ss)
+command! StripWhitespace call StripWhitespace()
 function! StripWhitespace()
 	let save_cursor = getpos(".")
 	let old_query = getreg('/')
 	:%s/\s\+$//e
 	call setpos('.', save_cursor)
 	call setreg('/', old_query)
+endfunction
+
+"========================================================================
+" Add the virtualenv's site-packages to vim path
+"
+command! ActivateVirtualenv call ActivateVirtualenv()
+function! ActivateVirtualenv()
+python << EOF
+import os
+import sys
+import vim
+if 'VIRTUAL_ENV' in os.environ:
+    project_base_dir = os.environ['VIRTUAL_ENV']
+    sys.path.insert(0, project_base_dir)
+    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+    execfile(activate_this, dict(__file__=activate_this))
+EOF
 endfunction
