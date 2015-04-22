@@ -66,7 +66,6 @@ call vundle#begin()
 call vundle#end()            		" required
 
 
-"execute pathogen#infect()
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
